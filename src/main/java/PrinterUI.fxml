@@ -1,24 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PrinterUIController">
    <children>
-      <AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #D8F7CD;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="UserTab" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #D8F7CD;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <StackPane layoutX="145.0" layoutY="137.0" onDragDropped="#handleDrop" onDragOver="#handleDragOver" opacity="0.28" prefHeight="326.0" prefWidth="411.0" style="-fx-border-style: dashed;" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="144.0">
-               <children>
-                  <Label prefHeight="52.0" prefWidth="172.0" text="Drag PDF file here">
-                     <font>
-                        <Font name="Microsoft Sans Serif" size="19.0" />
-                     </font>
-                  </Label>
-               </children>
-            </StackPane>
+            <JFXTabPane layoutX="46.0" layoutY="68.0" opacity="0.5" prefHeight="456.0" prefWidth="516.0" style="-fx-border-style: solid; -fx-pref-width: 350;" stylesheets="@styles.css" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="38.0">
+               <tabs>
+                  <Tab style="-fx-background-color: #AADD74; -fx-pref-width: 150;" text="URL">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab style="-fx-background-color: #AADD74; -fx-pref-width: 150;" text="PDF">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="457.0">
+                           <children>
+                              <StackPane layoutX="82.0" layoutY="61.0" onDragDropped="#handleDrop" onDragOver="#handleDragOver" opacity="0.5" prefHeight="303.0" prefWidth="349.0" style="-fx-border-style: dashed;" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="83.0">
+                                 <children>
+                                    <Label prefHeight="52.0" prefWidth="172.0" text=" Drag PDF file here">
+                                       <font>
+                                          <Font name="Microsoft Sans Serif" size="19.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                           </children></AnchorPane>
+                    </content>
+                  </Tab>
+               </tabs>
+            </JFXTabPane>
          </children>
       </AnchorPane>
    </children>

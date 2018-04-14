@@ -1,0 +1,7 @@
+.tab-header-background{
+	-fx-background-color: #AADD74;
+}
+
+.tab-label{
+    -fx-text-fill: #080707;
+}

@@ -29,4 +29,8 @@ public class PrinterUIController implements Initializable {
         List<File> files = event.getDragboard().getFiles();
     }
 
+    public void start(){
+        
+    }
+
 }

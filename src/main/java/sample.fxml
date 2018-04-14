@@ -8,7 +8,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="550.0" style="-fx-background-color: #D8F7CD;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
       <JFXButton fx:id="start" buttonType="RAISED" layoutX="204.0" layoutY="268.0" onAction="#getStarted" prefHeight="48.0" prefWidth="151.0" ripplerFill="#003c04" style="-fx-background-color: #AADD74;" text="Get Started" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
-      <Label layoutX="193.0" layoutY="104.0" prefHeight="54.0" prefWidth="164.0" text="  SkyPrint">
+      <Label  fx:id="label" layoutX="193.0" layoutY="104.0" prefHeight="54.0" prefWidth="164.0" text="  SkyPrint">
          <font>
             <Font name="Microsoft Sans Serif" size="34.0" />
          </font>

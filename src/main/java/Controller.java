@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -20,12 +22,15 @@ public class Controller implements Initializable {
     @FXML
     JFXButton start;
 
+    @FXML
+    Label label;
+
     Stage PrinterUI;
     Parent PrinterRoot = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        start();
     }
 
 
@@ -47,6 +52,13 @@ public class Controller implements Initializable {
         Stage sourceStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         sourceStage.close();
 
+    }
+
+    public void start(){
+        Platform.runLater(()->{
+            new sample.FadeInTransition(label).play();
+            new sample.FadeInTransition(start).play();
+        });
     }
 }
 

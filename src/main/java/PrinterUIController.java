@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -5,6 +6,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 
 import java.io.File;
+import java.lang.management.PlatformLoggingMXBean;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -29,8 +31,6 @@ public class PrinterUIController implements Initializable {
         List<File> files = event.getDragboard().getFiles();
     }
 
-    public void start(){
-        
-    }
+
 
 }

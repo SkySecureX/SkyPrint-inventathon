@@ -13,6 +13,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("SkyPrint");
         primaryStage.setScene(new Scene(root, 550, 400));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

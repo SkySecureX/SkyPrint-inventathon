@@ -9,11 +9,13 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+
 
     @FXML
     JFXButton start;
@@ -39,6 +41,7 @@ public class Controller implements Initializable {
 
         PrinterUI.setTitle("SkyPrint");
         PrinterUI.setScene(new Scene(PrinterRoot,700,600));
+        PrinterUI.setResizable(false);
         PrinterUI.show();
 
         Stage sourceStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -2,35 +2,29 @@
  Saves printing costs and energy by preventing unnecessary content from being printed. 
 
 # Plans for this project
--- Ability to save paper and ink when printing
+* Ability to save paper and ink when printing
 
--- Remove images from online articles 
+* Remove images from online articles 
 
--- Remove advertisements
+* Remove advertisements
 
--- Remove pages with just a url
+* Remove pages with just a url
 
--- remove single line words: smart filtering 
+* remove single line words: smart filtering 
 
--- Grammar Checker to avoid printing again [only if user wants it --check box]
+* Grammar Checker to avoid printing again [only if user wants it --check box]
 
--- Use selenium to access different websites and use their functionality.
+* Use selenium to access different websites and use their functionality.
   
--- reduce font size option
+* reduce font size option
 
--- PDF preview
+* PDF preview
 
--- Print the PDF: Apache PDFBox
+* Print the PDF: Apache PDFBox
 
--- merge PDF to be able to print front and back: Apache PDFBox Feature!
+* merge PDF to be able to print front and back: Apache PDFBox Feature!
   
--- remove text with HYPERLINKS!!: takes away text advertisements
--- removes captions under images
+* remove text with HYPERLINKS!!: takes away text advertisements
 
--- loading screen
-
--- UI
-- loading screen
-- pdf preview
-- pdf print
+* removes captions under images
 

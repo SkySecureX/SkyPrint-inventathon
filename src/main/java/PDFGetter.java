@@ -1,7 +1,3 @@
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mashape.unirest.request.GetRequest;
 import org.apache.pdfbox.contentstream.PDContentStream;
 import org.apache.pdfbox.io.RandomAccessInputStream;
 import org.apache.pdfbox.pdfparser.PDFParser;
@@ -9,10 +5,7 @@ import org.apache.pdfbox.pdfparser.PDFStreamParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.common.PDObjectStream;
 import org.apache.pdfbox.pdmodel.common.PDStream;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -49,9 +42,6 @@ public class PDFGetter extends Thread {
 
     @Override
     public void run() {
-        System.out.println("hello world!");
-        System.out.println("This is process " + Thread.currentThread().getId());
-
         ChromeDriver browser = new ChromeDriver(options);
 
         browser.get("https://printfriendly.com");
@@ -79,10 +69,15 @@ public class PDFGetter extends Thread {
 
         toRemove.addAll(links);
 
-        for(WebElement element : toRemove) {
-            element.click();
+        try {
+            for (WebElement element : toRemove) {
+                element.click();
+            }
+        } catch (WebDriverException e) {
+            browser.close();
+            Thread.currentThread().interrupt();
+            return;
         }
-
         // Click on the <Print PDF> button
         browser.findElement(By.id("w-pdf")).click();
 

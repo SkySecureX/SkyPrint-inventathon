@@ -53,6 +53,13 @@ public class PrinterUIController implements Initializable {
                 e.printStackTrace();
             }
             System.out.println(getter.getDocument());
+            if (getter.getDocument() == null) {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Unable to create PDF from URL.");
+                alert.setContentText("Please try a different URL.");
+                alert.showAndWait();
+            }
         }
     }
 

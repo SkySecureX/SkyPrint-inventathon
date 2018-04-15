@@ -6,6 +6,8 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
+import org.apache.pdfbox.pdfparser.PDFStreamParser;
+
 import java.io.File;
 import java.net.URL;
 import java.util.List;
@@ -35,12 +37,22 @@ public class PrinterUIController implements Initializable {
             alert.showAndWait();
         }
 
-        else if(url.getText().length()<7 || !url.getText().startsWith("http://") || !url.getText().startsWith("https://")){
+        else if(url.getText().length() < 9){
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Incorrect URL");
             alert.setContentText("Please enter a valid URL");
             alert.showAndWait();
+        }
+        else {
+            PDFGetter getter = new PDFGetter(url.getText());
+            getter.start();
+            try {
+                getter.join();
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(getter.getDocument());
         }
     }
 

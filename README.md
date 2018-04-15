@@ -1,7 +1,7 @@
 # SkyPrint
  Saves printing costs and energy by preventing unnecessary content from being printed. 
 
-# Plans for this project
+## Plans for this project
 * Ability to save paper and ink when printing
 
 * Remove images from online articles 

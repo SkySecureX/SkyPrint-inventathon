@@ -27,11 +27,19 @@ public class PrinterUIController implements Initializable {
 
     @FXML
     public void getURL(ActionEvent event){
-        if(url.getText().equals("")){
+        if(url.getText().isEmpty()){
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("URL was not found");
             alert.setContentText("Insert a URL");
+            alert.showAndWait();
+        }
+
+        else if(url.getText().length()<7 || !url.getText().startsWith("http://") || !url.getText().startsWith("https://")){
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Incorrect URL");
+            alert.setContentText("Please enter a valid URL");
             alert.showAndWait();
         }
     }

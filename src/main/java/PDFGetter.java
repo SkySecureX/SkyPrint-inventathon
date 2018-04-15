@@ -15,9 +15,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
+import java.util.Collections;
 import java.util.List;
 
 public class PDFGetter extends Thread {
@@ -25,12 +24,13 @@ public class PDFGetter extends Thread {
     private String url;
     private ChromeOptions options;
     private int timeout;
+    private boolean removeImages;
     private volatile PDDocument document; // Guaranteed to appear to all threads.
 
-    public PDFGetter(String url) {
+    public PDFGetter(String url, boolean removeImages) {
         this.url = url;
         timeout = 10;
-
+        this.removeImages = removeImages;
         options = new ChromeOptions();
         options.setHeadless(false);
         options.addArguments("--silent");
@@ -44,7 +44,11 @@ public class PDFGetter extends Thread {
     public void run() {
         ChromeDriver browser = new ChromeDriver(options);
 
+        System.out.println("Browser loaded");
+
         browser.get("https://printfriendly.com");
+
+        System.out.println("Page Loaded");
 
         // Wait until the page loads
         new WebDriverWait(browser, timeout).until(ExpectedConditions.titleContains("PDF"));
@@ -63,20 +67,34 @@ public class PDFGetter extends Thread {
             e.printStackTrace();
         }
 
-        List<WebElement> toRemove = browser.findElements(By.xpath("//img[contains(@class, 'flex-width')]"));
+        List<WebElement> toRemove = Collections.emptyList();
 
-        List<WebElement> links =  browser.findElements(By.xpath("//*[@id='pf-body']//a"));
+        if (this.removeImages) {
+            toRemove = browser.findElements(By.xpath("//img[contains(@class, 'flex-width')]"));
+            toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//span[contains(@class, 'caption')]")));
+            toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//span[contains(@class, 'credit')]")));
+        }
+        toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/p[7]")));
+        toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[2]/div[1]/div[2]/a")));
+        toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[1]")));
+        toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[2]")));
+        toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//a[starts-with(.,'http')]")));
+        toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'trial-link')]")));
+        toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*//*[contains(@class, 'trial-link')]")));
+        toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*//*[contains(@class, 'count-link')]")));
+        toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'count-link')]")));
+        toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'article-link')]")));
 
-        toRemove.addAll(links);
-
-        try {
-            for (WebElement element : toRemove) {
+        for (WebElement element : toRemove) {
+            try {
                 element.click();
+                System.out.println("Clicked element: " + element.getText());
+            } catch (WebDriverException e) {
+                System.out.println(e.getMessage());
+//                e.printStackTrace();
+//              browser.close();
+//              Thread.currentThread().interrupt();
             }
-        } catch (WebDriverException e) {
-            browser.close();
-            Thread.currentThread().interrupt();
-            return;
         }
         // Click on the <Print PDF> button
         browser.findElement(By.id("w-pdf")).click();

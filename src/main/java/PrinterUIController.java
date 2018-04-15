@@ -11,6 +11,9 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
@@ -36,9 +39,8 @@ public class PrinterUIController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        startProgress();
-    }
 
+    }
 
     @FXML
     public void getURL(ActionEvent event){
@@ -58,10 +60,24 @@ public class PrinterUIController implements Initializable {
             alert.showAndWait();
         }
         else {
-            PDFGetter getter = new PDFGetter(url.getText());
+//            startProgress();
+            ProgressUI = new Stage();
+            try {
+                ProgressRoot = FXMLLoader.load(getClass().getResource("ProgressUI.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ProgressUI.setTitle("Loading...");
+            ProgressUI.setScene(new Scene(ProgressRoot, 185, 185));
+            ProgressUI.sizeToScene();
+            ProgressUI.setResizable(false);
+            ProgressUI.setAlwaysOnTop(true);
+            ProgressUI.show();
+
+            PDFGetter getter = new PDFGetter(url.getText(), removeImages.isSelected());
             getter.start();
             try {
-                submit.isDisabled();
+//                submit.isDisabled();
                 getter.join();
 
             }catch (InterruptedException e) {
@@ -74,6 +90,13 @@ public class PrinterUIController implements Initializable {
                 alert.setHeaderText("Unable to create PDF from URL.");
                 alert.setContentText("Please try a different URL.");
                 alert.showAndWait();
+            } else {
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText("Created new PDF from URL");
+                alert.setContentText("It is saved in " + System.getProperty("user.dir") + "\\download.pdf");
+                alert.showAndWait();
+                ProgressUI.close();
             }
         }
     }

@@ -16,16 +16,15 @@ public class ProgressThread extends Thread {
         while(true){
             try{
                 Thread.sleep(100);
-            }
-            catch(InterruptedException ex){
+            } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
-            Platform.runLater(()->{
-                progressIndicator.setProgress(progress);
-            });
+            progressIndicator.setProgress(progress);
+
             progress+=1;
             if(progress>100){
-                break;
+                Thread.currentThread().interrupt();
+                return;
             }
 
         }

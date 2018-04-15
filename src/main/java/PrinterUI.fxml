@@ -11,21 +11,16 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PrinterUIController">
    <children>
-      <AnchorPane fx:id="UserTab" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #D8F7CD;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #D8F7CD;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <JFXTabPane layoutX="46.0" layoutY="68.0" opacity="0.84" prefHeight="456.0" prefWidth="516.0" style="-fx-border-style: solid; -fx-pref-width: 350;" stylesheets="@styles.css" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="38.0">
                <tabs>
                   <Tab style="-fx-background-color: #AADD74; -fx-pref-width: 150;" text="URL">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <AnchorPane fx:id="URLTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="479.0">
                            <children>
-                              <JFXTextField focusColor="#003c04" layoutX="145.0" layoutY="155.0" prefHeight="25.0" prefWidth="314.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="55.0" />
-                              <Label layoutX="55.0" layoutY="158.0" prefHeight="32.0" prefWidth="91.0" text="Insert URL:" textFill="#003c04" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="368.0">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </Label>
-                              <JFXButton buttonType="RAISED" layoutX="356.0" layoutY="199.0" prefHeight="39.0" prefWidth="108.0" ripplerFill="#003c04" style="-fx-background-color: #AADD74;" text="Submit" AnchorPane.leftAnchor="356.0" AnchorPane.rightAnchor="50.0" />
+                              <JFXTextField fx:id="url" alignment="CENTER" focusColor="#003c04" layoutX="33.0" layoutY="155.0" prefHeight="25.0" prefWidth="445.0" promptText="Insert URL" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="36.0" />
+                              <JFXButton buttonType="RAISED" layoutX="203.0" layoutY="192.0" onAction="#getURL" prefHeight="39.0" prefWidth="108.0" ripplerFill="#003c04" style="-fx-background-color: #AADD74;" text="Submit" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="203.0" />
                            </children></AnchorPane>
                     </content>
                   </Tab>

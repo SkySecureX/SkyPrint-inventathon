@@ -1,8 +1,10 @@
-import javafx.application.Platform;
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
+import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 import java.io.File;
 import java.net.URL;
@@ -12,11 +14,26 @@ import java.util.ResourceBundle;
 public class PrinterUIController implements Initializable {
 
     @FXML
-    AnchorPane UserTab;
+    AnchorPane URLTab;
+    @FXML
+    JFXTextField url;
+
+    private Alert alert;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    }
 
+    @FXML
+    public void getURL(ActionEvent event){
+        if(url.getText().equals("")){
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("URL was not found");
+            alert.setContentText("Insert a URL");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -31,11 +48,6 @@ public class PrinterUIController implements Initializable {
         List<File> files = event.getDragboard().getFiles();
     }
 
-    public void start(){
-        Platform.runLater(() ->{
-            new sample.FadeInTransition(UserTab).playFromStart();
-        });
-    }
 
 
 

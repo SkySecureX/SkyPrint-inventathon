@@ -1,14 +1,19 @@
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
-import org.apache.pdfbox.pdfparser.PDFStreamParser;
-
+import javafx.stage.Stage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -19,13 +24,21 @@ public class PrinterUIController implements Initializable {
     AnchorPane URLTab;
     @FXML
     JFXTextField url;
+    @FXML
+    JFXButton submit;
+    @FXML
+    JFXCheckBox removeImages;
 
     private Alert alert;
+    private Stage ProgressUI;
+    private Parent ProgressRoot;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        startProgress();
     }
+
 
     @FXML
     public void getURL(ActionEvent event){
@@ -48,7 +61,9 @@ public class PrinterUIController implements Initializable {
             PDFGetter getter = new PDFGetter(url.getText());
             getter.start();
             try {
+                submit.isDisabled();
                 getter.join();
+
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -73,6 +88,22 @@ public class PrinterUIController implements Initializable {
     @FXML
     public void handleDrop(DragEvent event){
         List<File> files = event.getDragboard().getFiles();
+    }
+
+    public void startProgress(){
+        ProgressUI = new Stage();
+        try {
+            ProgressRoot = FXMLLoader.load(getClass().getResource("ProgressUI.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ProgressUI.setTitle("Loading...");
+        ProgressUI.setScene(new Scene(ProgressRoot,185,185));
+        ProgressUI.sizeToScene();
+        ProgressUI.setResizable(false);
+        ProgressUI.setAlwaysOnTop(true);
+        ProgressUI.show();
+
     }
 
 

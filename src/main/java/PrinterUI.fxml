@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
@@ -10,39 +11,44 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PrinterUIController">
-   <children>
-      <AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #D8F7CD;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <children>
-            <JFXTabPane layoutX="46.0" layoutY="68.0" opacity="0.84" prefHeight="456.0" prefWidth="516.0" style="-fx-border-style: solid; -fx-pref-width: 350;" stylesheets="@styles.css" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="38.0">
-               <tabs>
-                  <Tab style="-fx-background-color: #AADD74; -fx-pref-width: 150;" text="URL">
-                    <content>
-                      <AnchorPane fx:id="URLTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="479.0">
-                           <children>
-                              <JFXTextField fx:id="url" alignment="CENTER" focusColor="#003c04" layoutX="33.0" layoutY="155.0" prefHeight="25.0" prefWidth="445.0" promptText="Insert URL" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="36.0" />
-                              <JFXButton buttonType="RAISED" layoutX="203.0" layoutY="192.0" onAction="#getURL" prefHeight="39.0" prefWidth="108.0" ripplerFill="#003c04" style="-fx-background-color: #AADD74;" text="Submit" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="203.0" />
-                           </children></AnchorPane>
-                    </content>
-                  </Tab>
-                  <Tab style="-fx-background-color: #AADD74; -fx-pref-width: 150;" text="PDF">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="457.0">
-                           <children>
-                              <StackPane layoutX="82.0" layoutY="61.0" onDragDropped="#handleDrop" onDragOver="#handleDragOver" opacity="0.5" prefHeight="303.0" prefWidth="349.0" style="-fx-border-style: dashed;" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="83.0">
-                                 <children>
-                                    <Label prefHeight="52.0" prefWidth="172.0" text=" Drag PDF file here">
-                                       <font>
-                                          <Font name="Microsoft Sans Serif" size="19.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </StackPane>
-                           </children></AnchorPane>
-                    </content>
-                  </Tab>
-               </tabs>
-            </JFXTabPane>
-         </children>
-      </AnchorPane>
-   </children>
+    <children>
+        <AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #D8F7CD;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <JFXTabPane layoutX="46.0" layoutY="68.0" opacity="0.84" prefHeight="456.0" prefWidth="516.0" style="-fx-border-style: solid; -fx-pref-width: 350;" stylesheets="@styles.css" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="38.0">
+                    <tabs>
+                        <Tab style="-fx-background-color: #AADD74; -fx-pref-width: 150;" text="URL">
+                            <content>
+                                <AnchorPane fx:id="URLTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="479.0">
+                                    <children>
+                                        <JFXTextField fx:id="url" alignment="CENTER" focusColor="#003c04" layoutX="35.0" layoutY="86.0" prefHeight="25.0" prefWidth="445.0" promptText="Insert URL" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="34.0" />
+                                        <JFXButton buttonType="RAISED" layoutX="203.0" layoutY="192.0" onAction="#getURL" prefHeight="39.0" prefWidth="108.0" ripplerFill="#003c04" style="-fx-background-color: #AADD74;" text="Submit" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="203.0" />
+                              <JFXCheckBox fx:id="removeImages" layoutX="35.0" layoutY="133.0" prefHeight="43.0" prefWidth="186.0" text="Remove Images">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                              </JFXCheckBox>
+                                    </children></AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab style="-fx-background-color: #AADD74; -fx-pref-width: 150;" text="PDF">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="457.0">
+                                    <children>
+                                        <StackPane layoutX="82.0" layoutY="61.0" onDragDropped="#handleDrop" onDragOver="#handleDragOver" opacity="0.5" prefHeight="303.0" prefWidth="349.0" style="-fx-border-style: dashed;" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="83.0">
+                                            <children>
+                                                <Label prefHeight="52.0" prefWidth="172.0" text=" Drag PDF file here">
+                                                    <font>
+                                                        <Font name="Microsoft Sans Serif" size="19.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </StackPane>
+                                    </children></AnchorPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </JFXTabPane>
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>

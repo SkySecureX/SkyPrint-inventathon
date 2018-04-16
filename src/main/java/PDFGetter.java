@@ -1,10 +1,5 @@
-import org.apache.pdfbox.contentstream.PDContentStream;
-import org.apache.pdfbox.io.RandomAccessInputStream;
-import org.apache.pdfbox.pdfparser.PDFParser;
-import org.apache.pdfbox.pdfparser.PDFStreamParser;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.common.PDObjectStream;
-import org.apache.pdfbox.pdmodel.common.PDStream;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -25,14 +20,14 @@ public class PDFGetter extends Thread {
     private ChromeOptions options;
     private int timeout;
     private boolean removeImages;
-    private volatile PDDocument document; // Guaranteed to appear to all threads.
+    private volatile PDDocument document;
 
     public PDFGetter(String url, boolean removeImages) {
         this.url = url;
         timeout = 10;
         this.removeImages = removeImages;
         options = new ChromeOptions();
-        options.setHeadless(false);
+        options.setHeadless(true);
         options.addArguments("--silent");
     }
 
@@ -74,10 +69,14 @@ public class PDFGetter extends Thread {
             toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//span[contains(@class, 'caption')]")));
             toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//span[contains(@class, 'credit')]")));
         }
-        toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/p[7]")));
-        toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[2]/div[1]/div[2]/a")));
-        toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[1]")));
-        toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[2]")));
+        try {
+            toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/p[7]")));
+            toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[2]/div[1]/div[2]/a")));
+            toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[1]")));
+            toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[2]")));
+        }catch(WebDriverException e){
+            System.out.println(e.getMessage());
+        }
         toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//a[starts-with(.,'http')]")));
         toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'trial-link')]")));
         toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*//*[contains(@class, 'trial-link')]")));
@@ -91,9 +90,6 @@ public class PDFGetter extends Thread {
                 System.out.println("Clicked element: " + element.getText());
             } catch (WebDriverException e) {
                 System.out.println(e.getMessage());
-//                e.printStackTrace();
-//              browser.close();
-//              Thread.currentThread().interrupt();
             }
         }
         // Click on the <Print PDF> button

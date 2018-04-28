@@ -1,19 +1,13 @@
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -25,61 +19,43 @@ public class PrinterUIController implements Initializable {
     @FXML
     JFXTextField url;
     @FXML
-    JFXButton submit;
-    @FXML
     JFXCheckBox removeImages;
 
     private Alert alert;
-    private Stage ProgressUI;
-    private Parent ProgressRoot;
+
 
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
+    public void initialize(URL location, ResourceBundle resources) {}
 
     @FXML
     public void getURL(ActionEvent event){
-        if(url.getText().isEmpty()){
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("URL was not found");
-            alert.setContentText("Insert a URL");
-            alert.showAndWait();
+
+        if(url.getText().isEmpty()) {
+            emptyURL();
         }
 
-        else if(url.getText().length() < 9){
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Incorrect URL");
-            alert.setContentText("Please enter a valid URL");
-            alert.showAndWait();
+        else if(url.getText().length() < 9) {
+            incorrectURL();
         }
+
         else {
 
-            PDFGetter getter = new PDFGetter(url.getText(), removeImages.isSelected());
+            PDFExtractor getter = new PDFExtractor(url.getText(), removeImages.isSelected());
             getter.start();
+
             try {
                 getter.join();
-
-            }catch (InterruptedException e) {
+            }
+            catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println(getter.getDocument());
+
             if (getter.getDocument() == null) {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Unable to create PDF from URL.");
-                alert.setContentText("Please try a different URL.");
-                alert.showAndWait();
-            } else {
-                alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText("Created new PDF from URL");
-                alert.setContentText("It is saved in " + System.getProperty("user.dir") + "\\download.pdf");
-                alert.showAndWait();
-                ProgressUI.close();
+                pdfError();
+            }
+            else {
+                pdfSuccess();
             }
         }
     }
@@ -96,21 +72,41 @@ public class PrinterUIController implements Initializable {
         List<File> files = event.getDragboard().getFiles();
     }
 
-    public void startProgress(){
-        ProgressUI = new Stage();
-        try {
-            ProgressRoot = FXMLLoader.load(getClass().getResource("ProgressUI.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        ProgressUI.setTitle("Loading...");
-        ProgressUI.setScene(new Scene(ProgressRoot,185,185));
-        ProgressUI.sizeToScene();
-        ProgressUI.setResizable(false);
-        ProgressUI.setAlwaysOnTop(true);
-        ProgressUI.show();
 
+    public void emptyURL(){
+        alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("URL was not found");
+        alert.setContentText("Insert a URL");
+        alert.showAndWait();
     }
+
+    public void incorrectURL(){
+        alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Incorrect URL");
+        alert.setContentText("Please enter a valid URL");
+        alert.showAndWait();
+    }
+
+    public void pdfError(){
+        alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Unable to create PDF from URL.");
+        alert.setContentText("Please try a different URL.");
+        alert.showAndWait();
+    }
+
+    public void pdfSuccess(){
+        alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText("Created new PDF from URL");
+        alert.setContentText("It is saved in " + System.getProperty("user.dir") + "\\download.pdf");
+        alert.showAndWait();
+    }
+
+
+
 
 
 

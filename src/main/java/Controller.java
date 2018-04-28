@@ -1,3 +1,5 @@
+
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -6,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
@@ -18,11 +19,9 @@ public class Controller implements Initializable {
     @FXML
     JFXButton start;
 
-    @FXML
-    Label label;
+    private Stage PrinterUI;
+    private Parent PrinterRoot = null;
 
-    Stage PrinterUI;
-    Parent PrinterRoot = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,10 +50,11 @@ public class Controller implements Initializable {
     }
 
     public void start(){
+
         Platform.runLater(()->{
-            new sample.FadeInRightTransition(label).playFromStart();
             new sample.FadeInLeftTransition(start).playFromStart();
         });
+
     }
 }
 

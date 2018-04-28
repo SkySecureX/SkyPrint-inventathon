@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="550.0" style="-fx-background-color: #D8F7CD;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<AnchorPane prefHeight="400.0" prefWidth="550.0" style="-fx-background-color: #47E428;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
-      <JFXButton fx:id="start" buttonType="RAISED" layoutX="204.0" layoutY="268.0" onAction="#getStarted" prefHeight="48.0" prefWidth="151.0" ripplerFill="#003c04" style="-fx-background-color: #AADD74;" text="Get Started" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" focusTraversable="true" layoutX="207.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/SkyPrint.png" />
-         </image>
-      </ImageView>
+      <JFXButton fx:id="start" buttonType="RAISED" layoutX="204.0" layoutY="268.0" onAction="#getStarted" prefHeight="48.0" prefWidth="151.0" ripplerFill="#003c04" style="-fx-background-color: #AADD74; -fx-border-color: #3B2F2F;" text="Get Started" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+      <ImageView fx:id="logo" fitHeight="208.0" fitWidth="338.0" focusTraversable="true" layoutX="108.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

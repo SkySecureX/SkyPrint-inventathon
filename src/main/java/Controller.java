@@ -8,6 +8,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
@@ -18,6 +20,8 @@ public class Controller implements Initializable {
 
     @FXML
     JFXButton start;
+    @FXML
+    ImageView logo;
 
     private Stage PrinterUI;
     private Parent PrinterRoot = null;
@@ -25,7 +29,10 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        logo.setImage(new Image("SkyPrint-Logo.png"));
         start();
+
     }
 
 
@@ -53,6 +60,7 @@ public class Controller implements Initializable {
 
         Platform.runLater(()->{
             new sample.FadeInLeftTransition(start).playFromStart();
+            new sample.FadeInRightTransition(logo).playFromStart();
         });
 
     }

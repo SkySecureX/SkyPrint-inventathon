@@ -1,4 +1,3 @@
-import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,8 +17,7 @@ public class PrinterUIController implements Initializable {
     AnchorPane URLTab;
     @FXML
     JFXTextField url;
-    @FXML
-    JFXCheckBox removeImages;
+
 
     private Alert alert;
 
@@ -41,7 +39,7 @@ public class PrinterUIController implements Initializable {
 
         else {
 
-            PDFExtractor getter = new PDFExtractor(url.getText(), removeImages.isSelected());
+            PDFExtractor getter = new PDFExtractor(url.getText());
             getter.start();
 
             try {

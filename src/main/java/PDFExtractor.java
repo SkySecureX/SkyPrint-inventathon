@@ -17,16 +17,14 @@ public class PDFExtractor extends Thread {
     private String url;
     private ChromeOptions options;
     private int timeout;
-    private boolean removeImages;
 
     private volatile PDDocument document;
     private URL pdfURL;
     private InputStream pdfStream;
 
-    public PDFExtractor(String url, boolean removeImages) {
+    public PDFExtractor(String url) {
 
         this.url = url;
-        this.removeImages = removeImages;
         options = new ChromeOptions();
         options.setHeadless(true);
         options.addArguments("--silent");
@@ -65,13 +63,11 @@ public class PDFExtractor extends Thread {
 
         List<WebElement> toRemove = Collections.emptyList();
 
-        if (this.removeImages) {
 
-            toRemove = browser.findElements(By.xpath("//img[contains(@class, 'flex-width')]"));
-            toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//span[contains(@class, 'caption')]")));
-            toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//span[contains(@class, 'credit')]")));
+        toRemove = browser.findElements(By.xpath("//img[contains(@class, 'flex-width')]"));
+        toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//span[contains(@class, 'caption')]")));
+        toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//span[contains(@class, 'credit')]")));
 
-        }
         try {
 
             toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/p[7]")));

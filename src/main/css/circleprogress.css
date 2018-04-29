@@ -1,7 +1,7 @@
 .circleindicator-container  {	
-	circleindicator-color: #003C04;
+	circleindicator-color: #009621;
 	-fx-padding: 5.0;
-	-fx-background-color: -fx-background;
+	-fx-background-color: #47E428;
 }
 .circleindicator-container > .circleindicator-label {
 	-fx-font-weight: bold; 

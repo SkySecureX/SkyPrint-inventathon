@@ -24,34 +24,22 @@ public class PrinterUIController implements Initializable {
     JFXTabPane tab;
 
     private Alert alert;
-    private CircularProgressIndicator indicator;
     private PDFExtractorThread pdfExtractorThread;
-    private RingProgressIndicator ringProgressIndicator;
+    RingProgressIndicator ringProgressIndicator;
 
 
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        startProgress();
-        ringProgressIndicator.setLayoutX(260);
-        ringProgressIndicator.setLayoutY(215);
-        UI.getChildren().add(ringProgressIndicator);
-    }
+    public void initialize(URL location, ResourceBundle resources) { startProgress(); }
 
     @FXML
     public void getPDF(ActionEvent event) throws InterruptedException {
 
-        if(url.getText().isEmpty()) {
-            emptyURLError();
-        }
+        if(url.getText().isEmpty()) { emptyURLError(); }
 
-
-        else if(url.getText().length() < 9) {
-            incorrectURLError();
-        }
+        else if(url.getText().length() < 9) { incorrectURLError(); }
 
         else {
-
             pdfExtractorThread = new PDFExtractorThread(url.getText(),this);
             pdfExtractorThread.execute();
 
@@ -83,10 +71,16 @@ public class PrinterUIController implements Initializable {
         ringProgressIndicator = new RingProgressIndicator();
         ringProgressIndicator.setRingWidth(500);
         ringProgressIndicator.makeIndeterminate();
+        ringProgressIndicator.setLayoutX(260);
+        ringProgressIndicator.setLayoutY(215);
+        UI.getChildren().add(ringProgressIndicator);
+        ringProgressIndicator.setOpacity(0.0);
+        ringProgressIndicator.setDisable(true);
     }
 
     public void stopProgress(){
-        UI.getChildren().remove(ringProgressIndicator);
+        ringProgressIndicator.setOpacity(0.0);
+        ringProgressIndicator.setDisable(true);
     }
 
     public void incorrectURLError(){

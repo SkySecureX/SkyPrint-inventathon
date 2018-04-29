@@ -46,7 +46,8 @@ public class PDFExtractor{
     public void getPDF(){
 
         printerUIController.tab.setOpacity(0.0);
-        printerUIController.startProgress();
+        printerUIController.ringProgressIndicator.setDisable(false);
+        printerUIController.ringProgressIndicator.setOpacity(1.0);
         ChromeDriver browser = new ChromeDriver(options);
         System.out.println("Browser loaded");
 
@@ -129,6 +130,7 @@ public class PDFExtractor{
         String pdfLocation = button.getAttribute("href");
 
         browser.close();
+
         System.out.println(pdfLocation);
 
 

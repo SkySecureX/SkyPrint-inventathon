@@ -33,7 +33,7 @@ public class PrinterUIController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) { startProgress(); }
 
     @FXML
-    public void getPDF(ActionEvent event) throws InterruptedException {
+    public void getPDF(ActionEvent event){
 
         if(url.getText().isEmpty()) { emptyURLError(); }
 

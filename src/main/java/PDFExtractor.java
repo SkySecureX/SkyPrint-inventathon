@@ -1,4 +1,3 @@
-import javafx.scene.control.Alert;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -24,7 +23,6 @@ public class PDFExtractor{
     private URL pdfURL;
     private InputStream pdfStream;
     private volatile boolean pdfCreated;
-    private Alert alert;
 
 
     public PDFExtractor(String url, PrinterUIController printerUIController) {
@@ -41,7 +39,6 @@ public class PDFExtractor{
     public PDDocument getDocument() {
         return document;
     }
-    public boolean isPdfCreated(){ return pdfCreated; }
 
     public void getPDF(){
 
@@ -73,27 +70,44 @@ public class PDFExtractor{
 
         List<WebElement> toRemove = Collections.emptyList();
 
-
+        //-- Finds images that contain the flex-width class
         toRemove = browser.findElements(By.xpath("//img[contains(@class, 'flex-width')]"));
         toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//span[contains(@class, 'caption')]")));
         toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//span[contains(@class, 'credit')]")));
 
-        try {
-            toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/p[7]")));
-            toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[2]/div[1]/div[2]/a")));
-            toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[1]")));
-            toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[2]")));
-
-        }catch(WebDriverException e){
-            System.out.println(e.getMessage());
-        }
-
+        //-- finds universal elements
         toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//a[starts-with(.,'http')]")));
         toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'trial-link')]")));
         toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*//*[contains(@class, 'trial-link')]")));
         toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*//*[contains(@class, 'count-link')]")));
         toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'count-link')]")));
         toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'article-link')]")));
+
+
+        //-- News Week Script
+        try {
+            toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/p[7]")));
+            toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[2]/div[1]/div[2]/a")));
+            toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[1]")));
+            toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[2]")));
+        }catch(WebDriverException e){
+            System.out.println(e.getMessage());
+        }
+
+        //--Guardian Script
+        try {
+            toRemove.addAll(browser.findElements(By.className("submeta__label")));
+            toRemove.addAll(browser.findElements(By.className("submeta__section-labels")));
+            toRemove.addAll(browser.findElements(By.className("submeta__links")));
+            toRemove.addAll(browser.findElements(By.className("submeta__link-item")));
+            toRemove.addAll(browser.findElements(By.className("submeta__syndication\n")));
+        }catch(WebDriverException e){
+            System.out.println(e.getMessage());
+        }
+
+
+
+
 
         for (WebElement element : toRemove) {
             try {

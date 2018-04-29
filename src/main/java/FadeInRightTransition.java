@@ -1,4 +1,3 @@
-package sample;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

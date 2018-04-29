@@ -13,14 +13,14 @@
     <children>
         <AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #47E428;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
-                <JFXTabPane layoutX="46.0" layoutY="68.0" opacity="0.84" prefHeight="456.0" prefWidth="516.0" style="-fx-border-style: solid; -fx-pref-width: 350; -fx-border-color: #3B2F2F;" stylesheets="@styles.css" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="38.0">
+                <JFXTabPane fx:id="tab" layoutX="46.0" layoutY="68.0" prefHeight="456.0" prefWidth="516.0" style="-fx-border-style: solid; -fx-pref-width: 350; -fx-border-color: #3B2F2F;" stylesheets="@styles.css" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="38.0">
                     <tabs>
                         <Tab style="-fx-background-color: #AADD74; -fx-pref-width: 150;" text="URL">
                             <content>
                                 <AnchorPane fx:id="URLTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="479.0">
                                     <children>
                                         <JFXTextField fx:id="url" alignment="CENTER" focusColor="#003c04" layoutX="35.0" layoutY="86.0" prefHeight="25.0" prefWidth="445.0" promptText="Insert URL" style="-fx-prompt-text-fill: #3B2F2F; -fx-text-inner-color: #3B2F2F;" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="34.0" />
-                                        <JFXButton buttonType="RAISED" layoutX="203.0" layoutY="192.0" onAction="#getURL" prefHeight="39.0" prefWidth="108.0" ripplerFill="#003c04" style="-fx-background-color: #AADD74; -fx-border-color: #3B2F2F;" text="Submit" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="203.0" />
+                                        <JFXButton buttonType="RAISED" layoutX="203.0" layoutY="192.0" onAction="#getPDF" prefHeight="39.0" prefWidth="108.0" ripplerFill="#003c04" style="-fx-background-color: #AADD74; -fx-border-color: #3B2F2F;" text="Submit" AnchorPane.leftAnchor="203.0" AnchorPane.rightAnchor="203.0" />
                                     </children></AnchorPane>
                             </content>
                         </Tab>

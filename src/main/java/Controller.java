@@ -1,5 +1,6 @@
 
 
+import com.jfoenix.controls.JFXTabPane;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,7 @@ public class Controller implements Initializable {
     @FXML
     ImageView logo;
 
+
     private Stage PrinterUI;
     private Parent PrinterRoot = null;
 
@@ -32,6 +34,7 @@ public class Controller implements Initializable {
 
         logo.setImage(new Image("SkyPrint-Logo.png"));
         start();
+
 
     }
 
@@ -59,8 +62,8 @@ public class Controller implements Initializable {
     public void start(){
 
         Platform.runLater(()->{
-            new sample.FadeInLeftTransition(start).playFromStart();
-            new sample.FadeInRightTransition(logo).playFromStart();
+            new FadeInLeftTransition(start).playFromStart();
+            new FadeInRightTransition(logo).playFromStart();
         });
 
     }

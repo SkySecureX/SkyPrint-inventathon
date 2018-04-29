@@ -1,3 +1,4 @@
+import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,30 +18,37 @@ public class PrinterUIController implements Initializable {
     AnchorPane URLTab;
     @FXML
     JFXTextField url;
-
+    @FXML
+    JFXTabPane tab;
 
     private Alert alert;
-
+    private ProgressThread progressThread;
+    private CircularProgressIndicator indicator;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
 
     @FXML
-    public void getURL(ActionEvent event){
+    public void getPDF(ActionEvent event){
 
         if(url.getText().isEmpty()) {
-            emptyURL();
+            emptyURLError();
         }
 
+
         else if(url.getText().length() < 9) {
-            incorrectURL();
+            incorrectURLError();
         }
 
         else {
 
             PDFExtractor getter = new PDFExtractor(url.getText());
             getter.start();
+            /*
+            progressThread = new ProgressThread(tab);
+            progressThread.execute();
+            */
 
             try {
                 getter.join();
@@ -71,7 +79,7 @@ public class PrinterUIController implements Initializable {
     }
 
 
-    public void emptyURL(){
+    public void emptyURLError(){
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("URL was not found");
@@ -79,7 +87,7 @@ public class PrinterUIController implements Initializable {
         alert.showAndWait();
     }
 
-    public void incorrectURL(){
+    public void incorrectURLError(){
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("Incorrect URL");
@@ -102,11 +110,5 @@ public class PrinterUIController implements Initializable {
         alert.setContentText("It is saved in " + System.getProperty("user.dir") + "\\download.pdf");
         alert.showAndWait();
     }
-
-
-
-
-
-
 
 }

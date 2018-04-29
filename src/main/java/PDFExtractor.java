@@ -69,7 +69,6 @@ public class PDFExtractor extends Thread {
         toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//span[contains(@class, 'credit')]")));
 
         try {
-
             toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/p[7]")));
             toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[2]/div[1]/div[2]/a")));
             toRemove.add(browser.findElement(By.xpath("//*[@id=\"pf-content\"]/div/div[2]/div[1]")));

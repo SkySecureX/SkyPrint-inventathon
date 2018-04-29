@@ -1,6 +1,4 @@
 
-
-import com.jfoenix.controls.JFXTabPane;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,6 +56,8 @@ public class Controller implements Initializable {
         sourceStage.close();
 
     }
+
+
 
     public void start(){
 

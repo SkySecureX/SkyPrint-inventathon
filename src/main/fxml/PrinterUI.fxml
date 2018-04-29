@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PrinterUIController">
     <children>
-        <AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #47E428;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <AnchorPane fx:id="UI" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #47E428;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
                 <JFXTabPane fx:id="tab" layoutX="46.0" layoutY="68.0" prefHeight="456.0" prefWidth="516.0" style="-fx-border-style: solid; -fx-pref-width: 350; -fx-border-color: #3B2F2F;" stylesheets="@styles.css" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="38.0">
                     <tabs>

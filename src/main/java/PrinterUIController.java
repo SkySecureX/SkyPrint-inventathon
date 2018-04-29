@@ -15,6 +15,8 @@ import java.util.ResourceBundle;
 public class PrinterUIController implements Initializable {
 
     @FXML
+    AnchorPane UI;
+    @FXML
     AnchorPane URLTab;
     @FXML
     JFXTextField url;
@@ -22,15 +24,22 @@ public class PrinterUIController implements Initializable {
     JFXTabPane tab;
 
     private Alert alert;
-    private ProgressThread progressThread;
     private CircularProgressIndicator indicator;
+    private PDFExtractorThread pdfExtractorThread;
+    private RingProgressIndicator ringProgressIndicator;
+
 
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {}
+    public void initialize(URL location, ResourceBundle resources) {
+        startProgress();
+        ringProgressIndicator.setLayoutX(260);
+        ringProgressIndicator.setLayoutY(215);
+        UI.getChildren().add(ringProgressIndicator);
+    }
 
     @FXML
-    public void getPDF(ActionEvent event){
+    public void getPDF(ActionEvent event) throws InterruptedException {
 
         if(url.getText().isEmpty()) {
             emptyURLError();
@@ -43,26 +52,9 @@ public class PrinterUIController implements Initializable {
 
         else {
 
-            PDFExtractor getter = new PDFExtractor(url.getText());
-            getter.start();
-            /*
-            progressThread = new ProgressThread(tab);
-            progressThread.execute();
-            */
+            pdfExtractorThread = new PDFExtractorThread(url.getText(),this);
+            pdfExtractorThread.execute();
 
-            try {
-                getter.join();
-            }
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            if (getter.getDocument() == null) {
-                pdfError();
-            }
-            else {
-                pdfSuccess();
-            }
         }
     }
 
@@ -87,6 +79,16 @@ public class PrinterUIController implements Initializable {
         alert.showAndWait();
     }
 
+    public void startProgress(){
+        ringProgressIndicator = new RingProgressIndicator();
+        ringProgressIndicator.setRingWidth(500);
+        ringProgressIndicator.makeIndeterminate();
+    }
+
+    public void stopProgress(){
+        UI.getChildren().remove(ringProgressIndicator);
+    }
+
     public void incorrectURLError(){
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -96,7 +98,7 @@ public class PrinterUIController implements Initializable {
     }
 
     public void pdfError(){
-        alert = new Alert(Alert.AlertType.ERROR);
+        alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("Unable to create PDF from URL.");
         alert.setContentText("Please try a different URL.");
@@ -104,11 +106,10 @@ public class PrinterUIController implements Initializable {
     }
 
     public void pdfSuccess(){
-        alert = new Alert(Alert.AlertType.INFORMATION);
+        alert = new javafx.scene.control.Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
         alert.setHeaderText("Created new PDF from URL");
         alert.setContentText("It is saved in " + System.getProperty("user.dir") + "\\download.pdf");
         alert.showAndWait();
     }
-
 }

@@ -1,3 +1,4 @@
+import javafx.scene.control.Alert;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,32 +13,40 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
-public class PDFExtractor extends Thread {
+public class PDFExtractor{
 
     private String url;
     private ChromeOptions options;
     private int timeout;
 
+    private PrinterUIController printerUIController;
     private volatile PDDocument document;
     private URL pdfURL;
     private InputStream pdfStream;
+    private volatile boolean pdfCreated;
+    private Alert alert;
 
-    public PDFExtractor(String url) {
+
+    public PDFExtractor(String url, PrinterUIController printerUIController) {
 
         this.url = url;
+        this.printerUIController = printerUIController;
         options = new ChromeOptions();
         options.setHeadless(true);
         options.addArguments("--silent");
         timeout = 10;
+        pdfCreated = false;
     }
 
     public PDDocument getDocument() {
         return document;
     }
+    public boolean isPdfCreated(){ return pdfCreated; }
 
-    @Override
-    public void run() {
+    public void getPDF(){
 
+        printerUIController.tab.setOpacity(0.0);
+        printerUIController.startProgress();
         ChromeDriver browser = new ChromeDriver(options);
         System.out.println("Browser loaded");
 
@@ -145,11 +154,17 @@ public class PDFExtractor extends Thread {
         }
 
         File pdfFile = new File("download.pdf");
+        pdfCreated = true;
+
 
         try {
             document = PDDocument.load(pdfFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
+
+
+
 }

@@ -94,7 +94,7 @@ public class PDFExtractor{
             System.out.println(e.getMessage());
         }
 
-        //--Guardian Script
+        //--Guardian Script -- removes submetas
         try {
             toRemove.addAll(browser.findElements(By.className("submeta__label")));
             toRemove.addAll(browser.findElements(By.className("submeta__section-labels")));
@@ -104,6 +104,27 @@ public class PDFExtractor{
         }catch(WebDriverException e){
             System.out.println(e.getMessage());
         }
+
+
+        //-- CNN Script
+        try{
+
+            //-- Must Watched, Just Watched, Video Titles removed
+            toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'js-video__end-slate__replay-text video__end-slate__replay-text')]")));
+            toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'video__end-slate__replay-text')]")));
+            toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'video__end-slate__tertiary-title')]")));
+            toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'video__end-slate__tertiary-title')]")));
+            toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'cd__headline')]")));
+            toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'cd__headline-title')]")));
+            toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'el__storyelement__header')]")));
+            toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'el__storyelement__gray')]")));
+
+
+        }
+        catch (WebDriverException e){
+            System.out.println(e.getMessage());
+        }
+
 
 
 

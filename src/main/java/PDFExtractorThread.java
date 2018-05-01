@@ -27,15 +27,16 @@ public class PDFExtractorThread extends AsyncTask {
 
     @Override
     public void onPostExecute(Object params) {
-        if(getDocument()!=null){
-            printerUIController.stopProgress();
-            printerUIController.pdfSuccess();
+        PDDocument document = getDocument();
+        if (document != null) {
             printerUIController.tab.setOpacity(1.0);
+            printerUIController.stopProgress();
+            printerUIController.pdfSuccess(document);
         }
         else{
+            printerUIController.tab.setOpacity(1.0);
             printerUIController.stopProgress();
             printerUIController.pdfError();
-            printerUIController.tab.setOpacity(1.0);
         }
     }
 

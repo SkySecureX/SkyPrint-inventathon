@@ -4,6 +4,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class PDFExtractor{
         this.url = url;
         this.printerUIController = printerUIController;
         options = new ChromeOptions();
-        options.setHeadless(true);
+//        options.setHeadless(true);
         options.addArguments("--silent");
         timeout = 10;
         pdfCreated = false;
@@ -105,7 +106,6 @@ public class PDFExtractor{
             System.out.println(e.getMessage());
         }
 
-
         //-- CNN Script
         try{
 
@@ -119,16 +119,10 @@ public class PDFExtractor{
             toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'el__storyelement__header')]")));
             toRemove.addAll(browser.findElements(By.xpath("//*[@id='pf-body']//*[contains(@class, 'el__storyelement__gray')]")));
 
-
         }
         catch (WebDriverException e){
             System.out.println(e.getMessage());
         }
-
-
-
-
-
 
         for (WebElement element : toRemove) {
             try {
@@ -191,7 +185,10 @@ public class PDFExtractor{
         }
 
         File pdfFile = new File("download.pdf");
+
         pdfCreated = true;
+        // Set icon
+        // set pdf name to title of article
 
 
         try {

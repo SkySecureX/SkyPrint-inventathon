@@ -1,12 +1,14 @@
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
-import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
+import org.apache.pdfbox.pdmodel.PDDocument;
+
 import java.io.File;
 import java.net.URL;
 import java.util.List;
@@ -38,19 +40,16 @@ public class PrinterUIController implements Initializable {
         if(url.getText().isEmpty()) { emptyURLError(); }
 
         else if(url.getText().length() < 9) { incorrectURLError(); }
-
         else {
             pdfExtractorThread = new PDFExtractorThread(url.getText(),this);
             pdfExtractorThread.execute();
-
         }
     }
 
     @FXML
     public void handleDragOver(DragEvent event){
-        if(event.getDragboard().hasFiles()){
+        if (event.getDragboard().hasFiles())
             event.acceptTransferModes(TransferMode.ANY);
-        }
     }
 
     @FXML
@@ -99,11 +98,15 @@ public class PrinterUIController implements Initializable {
         alert.showAndWait();
     }
 
-    public void pdfSuccess(){
+    public void pdfSuccess(PDDocument document) {
+        String pdfLocation = System.getProperty("user.dir") + File.separator + "download.pdf";
         alert = new javafx.scene.control.Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
         alert.setHeaderText("Created new PDF from URL");
-        alert.setContentText("It is saved in " + System.getProperty("user.dir") + "\\download.pdf");
+        alert.setContentText("It is saved in " + pdfLocation);
         alert.showAndWait();
+        System.out.println(pdfLocation);
+        Print.printDocument(document);
+
     }
 }

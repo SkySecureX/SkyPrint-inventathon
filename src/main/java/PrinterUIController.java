@@ -8,7 +8,6 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import org.apache.pdfbox.pdmodel.PDDocument;
-
 import java.io.File;
 import java.net.URL;
 import java.util.List;

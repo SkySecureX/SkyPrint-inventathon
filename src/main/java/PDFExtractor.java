@@ -31,7 +31,7 @@ public class PDFExtractor{
         this.url = url;
         this.printerUIController = printerUIController;
         options = new ChromeOptions();
-//        options.setHeadless(true);
+        options.setHeadless(true);
         options.addArguments("--silent");
         timeout = 10;
         pdfCreated = false;

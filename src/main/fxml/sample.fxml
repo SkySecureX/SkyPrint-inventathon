@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
@@ -8,5 +9,6 @@
    <children>
       <JFXButton fx:id="start" buttonType="RAISED" layoutX="204.0" layoutY="268.0" onAction="#getStarted" prefHeight="48.0" prefWidth="151.0" ripplerFill="#003c04" style="-fx-background-color: #AADD74; -fx-border-color: #3B2F2F;" text="Get Started" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
       <ImageView fx:id="logo" fitHeight="208.0" fitWidth="338.0" focusTraversable="true" layoutX="108.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="copyright" layoutX="159.0" layoutY="378.0" prefHeight="17.0" prefWidth="256.0" text=" © 2018 SkySecure X. All rights reserved" textAlignment="CENTER" />
    </children>
 </AnchorPane>

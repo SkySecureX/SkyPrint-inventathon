@@ -1,30 +1,25 @@
 # SkyPrint
- Saves printing costs and energy by preventing unnecessary content from being printed. 
+SkyPrint is a cross-platform desktop application that saves paper by preventing unnecessary content from being printed. It has a user-friendly Graphics User Interface that uses browser automation to remove the unnecessary content. 
+# Why SkyPrint?
+When we want to print out an article/document, we immediately press Ctrl + P or Command + P and press enter without even thinking about it. This sub-conscious act results in waste of paper and ink from unnecessary white spaces, images, captions, advertisements, irrelevant text to be printed. This fast-paced society disintegrates our ability to be eco-conscious about printing.  
 
-## Plans for this project
-* Ability to save paper and ink when printing
+# Features
+* Removes Images
+* Removes Image captions
+* Removes Advertisements: Images
+* Removes irrelevant text 
 
-* Remove images from online articles 
-
-* Remove advertisements
-
-* Remove pages with just a url
-
+## Features that are still in development 
 * remove single line words: smart filtering 
-
 * Grammar Checker to avoid printing again [only if user wants it --check box]
-
-* Use selenium to access different websites and use their functionality.
-  
 * reduce font size option
-
 * PDF preview
+* Print the PDF
+* merge PDF to be able to print front and back
 
-* Print the PDF: Apache PDFBox
+## Requirements 
+* IntelliJ 2018 Community Edition
+* Gradle v4.7
 
-* merge PDF to be able to print front and back: Apache PDFBox Feature!
-  
-* remove text with HYPERLINKS!!: takes away text advertisements
-
-* removes captions under images
-
+## License 
+This project is available under the MIT license. See the LICENSE file for more info.

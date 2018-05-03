@@ -103,8 +103,9 @@ public class PrinterUIController implements Initializable {
     }
 
     public void pdfSuccess(File document, String docName) {
+//        String pdfLocation = System.getProperty("user.home") + File.separator + "Documents" + File.separator + docName;
 
-        String pdfLocation = System.getProperty("user.home") + File.separator + "Documents/" + docName;
+        String pdfLocation = System.getProperty("user.dir") + File.separator + docName;
 
         SwingUtilities.invokeLater(() -> {
             JFileChooser chooser = new JFileChooser();

@@ -4,10 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import org.apache.pdfbox.pdmodel.PDDocument;
+
+import javax.swing.*;
 import java.io.File;
 import java.net.URL;
 import java.util.List;
@@ -23,6 +26,7 @@ public class PrinterUIController implements Initializable {
     JFXTextField url;
     @FXML
     JFXTabPane tab;
+
 
     private Alert alert;
     private PDFExtractorThread pdfExtractorThread;
@@ -105,7 +109,9 @@ public class PrinterUIController implements Initializable {
         alert.setContentText("It is saved in " + pdfLocation);
         alert.showAndWait();
         System.out.println(pdfLocation);
-        Print.printDocument(document);
+        SwingUtilities.invokeLater(() -> {
+            Print.printDocument(document);
+        });
 
     }
 }

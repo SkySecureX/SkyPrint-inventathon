@@ -1,18 +1,14 @@
-import org.apache.pdfbox.pdmodel.PDDocument;
+import java.io.File;
 
 public class PDFExtractorThread extends AsyncTask {
 
     private PrinterUIController printerUIController;
-    private PDFExtractor document;
+    private PDFExtractor extractor;
 
 
     public PDFExtractorThread(String url, PrinterUIController printerUIController){
-        document = new PDFExtractor(url,printerUIController);
+        extractor = new PDFExtractor(url, printerUIController);
         this.printerUIController = printerUIController;
-    }
-
-    public PDDocument getDocument() {
-        return document.getDocument();
     }
 
     @Override
@@ -21,17 +17,18 @@ public class PDFExtractorThread extends AsyncTask {
 
     @Override
     public Object doInBackground(Object[] params) {
-        document.getPDF();
+        extractor.getPDF();
         return null;
     }
 
     @Override
     public void onPostExecute(Object params) {
-        PDDocument document = getDocument();
+        File document = extractor.getDocument();
+        String docName = extractor.getDocumentName();
         if (document != null) {
             printerUIController.tab.setOpacity(1.0);
             printerUIController.stopProgress();
-            printerUIController.pdfSuccess(document);
+            printerUIController.pdfSuccess(document, docName);
         }
         else{
             printerUIController.tab.setOpacity(1.0);

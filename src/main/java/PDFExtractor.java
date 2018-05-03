@@ -1,4 +1,3 @@
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,7 +9,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Collections;
 import java.util.List;
 
 public class PDFExtractor{
@@ -20,11 +18,11 @@ public class PDFExtractor{
     private int timeout;
 
     private PrinterUIController printerUIController;
-    private volatile PDDocument document;
+    private volatile File document;
     private URL pdfURL;
     private InputStream pdfStream;
     private volatile boolean pdfCreated;
-
+    private String documentName;
 
     public PDFExtractor(String url, PrinterUIController printerUIController) {
 
@@ -37,11 +35,15 @@ public class PDFExtractor{
         pdfCreated = false;
     }
 
-    public PDDocument getDocument() {
+    public File getDocument() {
         return document;
     }
 
-    public void getPDF(){
+    public String getDocumentName() {
+        return documentName;
+    }
+
+    public void getPDF() {
 
         printerUIController.tab.setOpacity(0.0);
         printerUIController.ringProgressIndicator.setDisable(false);
@@ -69,7 +71,10 @@ public class PDFExtractor{
             e.printStackTrace();
         }
 
-        List<WebElement> toRemove = Collections.emptyList();
+//        documentName = browser.findElement(By.id("pf-title")).getText().trim().substring(0, 10) + ".pdf";
+        documentName = "download.pdf";
+
+        List<WebElement> toRemove;
 
         //-- Finds images that contain the flex-width class
         toRemove = browser.findElements(By.xpath("//img[contains(@class, 'flex-width')]"));
@@ -166,11 +171,19 @@ public class PDFExtractor{
         byte[] ba1 = new byte[1024];
         FileOutputStream pdfOutputStream;
         int baLength;
+        String loc = "";
 
         try{
             pdfURL = new URL(pdfLocation);
             pdfStream = pdfURL.openStream();
-            pdfOutputStream = new FileOutputStream("download.pdf");
+            if (System.getProperty("os.name").startsWith("Window")) {
+                loc = System.getProperty("user.home") + "\\Documents\\" + documentName;
+
+                pdfOutputStream = new FileOutputStream(loc);
+            } else {
+                loc = System.getProperty("user.dir") + "/" + documentName;
+                pdfOutputStream = new FileOutputStream(loc);
+            }
 
             while ((baLength = pdfStream.read(ba1)) != -1) {
                 pdfOutputStream.write(ba1, 0, baLength);
@@ -184,18 +197,12 @@ public class PDFExtractor{
             e.printStackTrace();
         }
 
-        File pdfFile = new File("download.pdf");
+        File pdfFile = new File(loc);
+        System.out.println(pdfFile.getAbsolutePath());
 
         pdfCreated = true;
-        // Set icon
-        // set pdf name to title of article
 
-
-        try {
-            document = PDDocument.load(pdfFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        document = pdfFile;
 
     }
 

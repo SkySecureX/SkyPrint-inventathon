@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
@@ -12,6 +11,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -27,10 +28,10 @@ public class PrinterUIController implements Initializable {
     @FXML
     JFXTabPane tab;
 
-
     private Alert alert;
     private PDFExtractorThread pdfExtractorThread;
     RingProgressIndicator ringProgressIndicator;
+
 
 
 
@@ -101,17 +102,34 @@ public class PrinterUIController implements Initializable {
         alert.showAndWait();
     }
 
-    public void pdfSuccess(PDDocument document) {
-        String pdfLocation = System.getProperty("user.dir") + File.separator + "download.pdf";
+    public void pdfSuccess(File document, String docName) {
+
+        String pdfLocation = System.getProperty("user.home") + File.separator + "Documents/" + docName;
+
+        SwingUtilities.invokeLater(() -> {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setSelectedFile(document);
+            chooser.showSaveDialog(null);
+            PrintWriter printWriter;
+            try {
+                printWriter = new PrintWriter(document);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
         alert = new javafx.scene.control.Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
         alert.setHeaderText("Created new PDF from URL");
         alert.setContentText("It is saved in " + pdfLocation);
         alert.showAndWait();
         System.out.println(pdfLocation);
-        SwingUtilities.invokeLater(() -> {
-            Print.printDocument(document);
-        });
+        try {
+            Print.printDocument(PDDocument.load(document));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

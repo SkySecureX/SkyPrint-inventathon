@@ -10,6 +10,7 @@ buildscript {
 }
 apply plugin: 'java'
 apply plugin: 'application'
+
 repositories {
     mavenLocal()
     mavenCentral()
@@ -23,7 +24,6 @@ dependencies {
 
 apply plugin: 'javafx-gradle-plugin'
 
-
 jfx {
     // minimal requirement for jfxJar-task
     mainClass = 'Main'
@@ -35,7 +35,7 @@ jfx {
 sourceSets {
     main {
         resources {
-            srcDirs = ["src/main/java","src/main/css","src/main/fxml","src/main/images","src/main/external libraries"]
+            srcDirs = ["src/main/java","src/main/css","src/main/fxml","src/main/images"]
             includes = ["**/*.fxml", "**/*.css","**/*.png","**/*.jar"]
         }
     }

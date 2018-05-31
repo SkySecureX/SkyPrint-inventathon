@@ -8,7 +8,6 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import org.apache.pdfbox.pdmodel.PDDocument;
-
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
@@ -103,7 +102,6 @@ public class PrinterUIController implements Initializable {
     }
 
     public void pdfSuccess(File document, String docName) {
-//        String pdfLocation = System.getProperty("user.home") + File.separator + "Documents" + File.separator + docName;
 
         String pdfLocation = System.getProperty("user.dir") + File.separator + docName;
 
@@ -126,11 +124,13 @@ public class PrinterUIController implements Initializable {
         alert.setContentText("It is saved in " + pdfLocation);
         alert.showAndWait();
         System.out.println(pdfLocation);
-        try {
-            Print.printDocument(PDDocument.load(document));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        SwingUtilities.invokeLater(() -> {
+            try {
+                Print.printDocument(PDDocument.load(document));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
     }
 }
